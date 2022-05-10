@@ -2,14 +2,14 @@
 # Script to download my initial stuff
 #
 # This script should be run via curl:
-#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ixicale/seed/ubuntu.setup.sh)"
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh)"
 # or via wget:
-#   sh -c "$(wget -qO- https://raw.githubusercontent.com/ixicale/seed/ubuntu.setup.sh)"
+#   sh -c "$(wget -qO- https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh)"
 # or via fetch:
-#   sh -c "$(fetch -o - https://raw.githubusercontent.com/ixicale/seed/ubuntu.setup.sh)"
+#   sh -c "$(fetch -o - https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh)"
 #
 # As an alternative, you can first download the install script and run it afterwards:
-#   wget https://raw.githubusercontent.com/ixicale/seed/ubuntu.setup.sh
+#   wget https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh
 #   sh ubuntu.setup.sh
 # 
 
