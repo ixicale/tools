@@ -70,6 +70,7 @@ setup_package_to_install(){
 }
 download_my_stuff(){
     create_main_container;
+    cd "$DOWNLOAD_CONTAINER";
     [ ! -f "$DOWNLOAD_CONTAINER/xide.zsh-theme" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme; }
     [ ! -f "$DOWNLOAD_CONTAINER/shell.settings.sh" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh; }
     [ ! -f "$DOWNLOAD_CONTAINER/setup.sh" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh; }
