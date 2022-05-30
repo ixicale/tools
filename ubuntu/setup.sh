@@ -1,17 +1,19 @@
 #!/bin/bash
+echo "Version: 2022053001"
 # Script to download my initial stuff
 #
 # This script should be run via curl:
-#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh)"
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh)"
 # or via wget:
-#   sh -c "$(wget -qO- https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh)"
+#   sh -c "$(wget -qO- https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh)"
 # or via fetch:
-#   sh -c "$(fetch -o - https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh)"
+#   sh -c "$(fetch -o - https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh)"
 #
 # As an alternative, you can first download the install script and run it afterwards:
-#   wget https://raw.githubusercontent.com/ixicale/seed/main/ubuntu.setup.sh
-#   sh ubuntu.setup.sh
+#   wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh
+#   sh setup.sh
 # 
+DOWNLOAD_CONTAINER="$HOME/.xide";
 
 setup_color(){
     # Regular Colors
@@ -53,7 +55,10 @@ print_success(){
     echo ""
 }
 create_main_container(){
-    mkdir $HOME/._;
+    # delete old stuff
+    if [ -d "$DOWNLOAD_CONTAINER" ] && rm -rf $DOWNLOAD_CONTAINER;
+    # download new stuff
+    mkdir $DOWNLOAD_CONTAINER;
 }
 up_to_day(){
     sudo apt -y update;
@@ -63,14 +68,21 @@ setup_package_to_install(){
     sudo apt install git xclip zsh fonts-powerline curl;
     sudo snap install --classic code;
 }
+download_my_stuff(){
+    create_main_container;
+    if [ ! -f "$DOWNLOAD_CONTAINER/xide.zsh-theme" ] && wget https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme;
+    if [ ! -f "$DOWNLOAD_CONTAINER/shell.settings.sh" ] && wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh;
+    if [ ! -f "$DOWNLOAD_CONTAINER/setup.sh" ] && wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh;
+
+}
 setup_oh_my_zsh(){
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)";
 }
 
 main(){
     up_to_day
-    create_main_container
     setup_package_to_install
+    download_my_stuff
     setup_color
     print_success
     setup_oh_my_zsh
