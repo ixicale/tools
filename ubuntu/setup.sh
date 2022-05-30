@@ -56,7 +56,7 @@ print_success(){
 }
 create_main_container(){
     # delete old stuff
-    if [ -d "$DOWNLOAD_CONTAINER" ] && rm -rf $DOWNLOAD_CONTAINER;
+    if [ -d "$DOWNLOAD_CONTAINER" ] && { rm -rf $DOWNLOAD_CONTAINER; }
     # download new stuff
     mkdir $DOWNLOAD_CONTAINER;
 }
@@ -70,9 +70,9 @@ setup_package_to_install(){
 }
 download_my_stuff(){
     create_main_container;
-    if [ ! -f "$DOWNLOAD_CONTAINER/xide.zsh-theme" ] && wget https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme;
-    if [ ! -f "$DOWNLOAD_CONTAINER/shell.settings.sh" ] && wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh;
-    if [ ! -f "$DOWNLOAD_CONTAINER/setup.sh" ] && wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh;
+    if [ ! -f "$DOWNLOAD_CONTAINER/xide.zsh-theme" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme; }
+    if [ ! -f "$DOWNLOAD_CONTAINER/shell.settings.sh" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh; }
+    if [ ! -f "$DOWNLOAD_CONTAINER/setup.sh" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh; }
 
 }
 setup_oh_my_zsh(){
