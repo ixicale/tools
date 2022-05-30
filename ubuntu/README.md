@@ -42,8 +42,21 @@ Only run this if you want to download my shell settings `after the installation 
 ln -nsf $HOME/.xide/xide.zsh-theme $ZSH/themes/xide.zsh-theme;
 # Append my custom aliases, functions, and keybindings to ZSH
 echo -e "\nsource $HOME/.xide/shell.settings.sh" >> $HOME/.zshrc;
-# Reload ZSH
-source $HOME/.zshrc;
 
+```
+
+Replace `ZSH_THEME="{some-theme}"` with `ZSH_THEME="xide"` in your `.zshrc` file.
+
+```bash
+# Look for the theme in the ZSH themes directory and override the default theme
+code $HOME/.zshrc;
+
+```
+
+Then reload your shell.
+
+```bash
+# Reload ZSH shell
+source $HOME/.zshrc;
 
 ```
