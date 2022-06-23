@@ -2,6 +2,8 @@
 export F_DATE=$(date +%Y.%m%b.%d)
 export MY_SHELL_FILE="$0"
 export MY_SETTINGS_FOLDER=$(dirname $MY_SHELL_FILE)
+export LOGGER_FILE="/tmp/logger_file.md"
+
 #endregion — — — — — — — — — — # ! EXPORTS
 
 #region    — — — — — — — — — — # ! ALIASES
@@ -22,7 +24,12 @@ function path_add() { if [ -d "$1" ] && [ -f "$1" ] && [[ ":$PATH:" != *":$1:"* 
 function python_venv(){omae_wa_mou_shindeiru $1; python3.7 -m venv $1 && source $1/bin/activate && pip install --upgrade pip; }
 function pull_repos_from_folder() {
     [ -d "$1" ] && {
-        editor $1 && for repo in $(ls -d $1/*/); do echo -e "\n\n## update $repo" && echo "$(cd $repo && gic develop && git fetch --all && gipl --tags -f && gipl)"; done
+        echo "" > $LOGGER_FILE;
+        editor $LOGGER_FILE;
+        for repo in $(ls -d $1/*/); do 
+            echo -e "## update $repo" >> $LOGGER_FILE;
+            echo "$(cd $repo && gic develop && git fetch --all && gipl --tags -f && gipl)" >> $LOGGER_FILE;
+        done
     }
 }
 function rst () { clear -x; source ~/.zshrc; apt moo moo; echo "";}
