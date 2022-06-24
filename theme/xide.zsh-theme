@@ -65,7 +65,8 @@ functions rbenv_prompt_info >& /dev/null || rbenv_prompt_info(){}
 
 function theme_precmd {
     local TERMWIDTH
-    (( TERMWIDTH = ${COLUMNS} - 1 ))
+    local aux_fix=0 # fix for prompt size
+    (( TERMWIDTH = ${COLUMNS} - ${aux_fix} ))
 
 
     ###
