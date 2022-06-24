@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Version: 2022053001"
+echo "Version: 2022062301"
 # Script to download my initial stuff
 #
 # This script should be run via curl:
@@ -68,12 +68,12 @@ setup_package_to_install(){
     sudo apt install git xclip zsh fonts-powerline curl;
     sudo snap install --classic code;
 }
-download_my_stuff(){
+download_seed(){
     create_main_container;
     cd "$DOWNLOAD_CONTAINER";
-    [ ! -f "$DOWNLOAD_CONTAINER/xide.zsh-theme" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme; }
-    [ ! -f "$DOWNLOAD_CONTAINER/shell.settings.sh" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh; }
-    [ ! -f "$DOWNLOAD_CONTAINER/setup.sh" ] && { wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/setup.sh; }
+    wget https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme;
+    wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh;
+    wget https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.colors.sh;
 
 }
 setup_oh_my_zsh(){
@@ -83,7 +83,7 @@ setup_oh_my_zsh(){
 main(){
     up_to_day
     setup_package_to_install
-    download_my_stuff
+    download_seed
     setup_color
     print_success
     setup_oh_my_zsh
