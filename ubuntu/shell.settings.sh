@@ -2,7 +2,7 @@
 export N_DAY=$(date +"%u")
 export F_DATE=$(date +%Y.%m%b.%d)
 export SHELL_FILE="$0"
-export SHELL_FOLDER=$(dirname $MY_SHELL_FILE)
+export SHELL_FOLDER=$(dirname $SHELL_FILE)
 export LOGGER_FILE="/tmp/logger_file.md"
 
 #endregion — — — — — — — — — — # ! EXPORTS
