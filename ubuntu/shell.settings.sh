@@ -60,4 +60,4 @@ else
 fi
 #endregion — — — — — — — — — — #! AUTO-RUN SETTINGS
 
-echo "own settings initialized from ${UPurple}'$MY_SHELL_FILE'${Color_Off}"
+echo "own settings initialized from ${UPurple}'$SHELL_FILE'${Color_Off}"

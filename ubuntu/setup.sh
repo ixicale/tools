@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "Version: 2022062301"
 # Script to download my initial stuff
 #
 # This script should be run via curl:
@@ -29,30 +28,33 @@ setup_color(){
     PR_WHITE=$(printf '\033[0;37m' )  # White
     PR_RAINBOW="
         $PR_YELLOW
-        $PR_CYAN
-        $PR_GREEN
-        $PR_RED
+        $PR_BLUE
         $PR_PURPLE
+        $PR_RED
+        $PR_GREEN
     "
 }
 print_success(){
-    printf "%s          _____        %s_____  %s_____           %s_____________  %s       _  _   %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s___      /    /       %s/ _  / %s/     \         %s/            / %s_  _   / \/ \  %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s\  \    /    /       %s/____/ %s/       \       %s/     _______/ %s/ \/ \  \    /  %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s \  \  /    /       %s ___   %s/    _    \     %s/    /         %s \    /   \  /   %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s  \  \/    /       %s/    / %s/    / \    \   %s/    /___      %s   \  / _  _\/    %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s   \      /       %s/    / %s/    /   \    ) %s/        /     %s _   \/ / \/ \     %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s    \    /       %s/    / %s/    /    /   / %s/    ____/     %s / \/ \  \    /     %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s   /    \       %s/    / %s/    /    /   / %s/    /         %s  \    /   \  /      %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s  /      \     %s/    / %s/    /____/   / %s/    /________ %s    \  /     \/       %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s /    /\  \   %s/    / %s/             / %s/             /%s      \/               %s\n" $PR_RAINBOW $PR_RESET
-    printf "%s/____/  \__\ %s/____/ %s/_____________/ %s/_____________/%s  $PR_GREEN ....is now installed %s\n" $PR_RAINBOW $PR_RESET
-    echo ""
-    echo ""
-    echo "  Now you are part of the Xide's family because you are downloading 'the seed'."
-    echo "  Using 'the seed' is your own responsibilily of all stuff downloaded from here. Now, Enjoy! :)"
-    echo ""
-    echo ""
+    setup_color
+    printf "%s                      %s        %s           ddddddd %s                %s ────────────────────────────────────────────────────────────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sXXXXXXX       XXXXXXX %s  iii   %s           d:::::d %s                %s ──╔════╦╗─────────────────╔╗────────────────────────────────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sX:::::X       X:::::X %s i:::i  %s           d:::::d %s                %s ──║╔╗╔╗║║─────────────────║║────────────────────────────────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sX:::::X       X:::::X %s  iii   %s           d:::::d %s                %s ──╚╝║║╚╣╚═╦══╗ ╔══╦══╦══╦═╝║ ╔╗╔╗╔╦══╦══╗───────────────────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sX::::::X     X::::::X %s        %s           d::::d  %s                %s ────║║─║╔╗║║═╣ ║══╣║═╣║═╣╔╗║ ║╚╝╚╝║╔╗║══╣───────────────────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sXXX:::::X   X:::::XXX %siiiiii  %s    dddddddd::::d  %s    eeeeeeee    %s ────║║─║║║║║═╣ ╠══║║═╣║═╣╚╝║ ╚╗╔╗╔╣╔╗╠══║───────────────────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%s   X:::::X X:::::X    %si::::i  %s  dd::::::::::::d  %s  ee::::::::ee  %s ────╚╝─╚╝╚╩══╝ ╚══╩══╩══╩══╝──╚╝╚╝╚╝╚╩══╝───────────────────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%s    X:::::X:::::X     %s i:::i  %s d::::::::::::::d  %s e::::eeeee:::ee%s ────╔╗─────╔╗────────────╔╗────────────────────╔═╗──╔╗╔╗────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%s     X:::::::::X      %s i:::i  %sd::::::ddddd::::d  %se::::e     e:::e%s ────║║─────║║────────────║║────────────────────║╔╝──║║║║────── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%s     X:::::::::X      %s i:::i  %sd:::::d    d::::d  %se:::::eeeee::::e%s ──╔═╝╠══╦══╣║╔══╦╗─╔╦══╦═╝║ ╔══╦╗╔╦══╦══╦══╦══╦╝╚╦╗╔╣║║║╔╗─╔╗─ %s\n" $PR_RAINBOW $PR_RESET
+    printf "%s    X:::::X:::::X     %s i:::i  %sd::::d     d::::d  %se:::::::::::::e %s ──║╔╗║║═╣╔╗║║║╔╗║║─║║║═╣╔╗║ ║══╣║║║╔═╣╔═╣║═╣══╬╗╔╣║║║║║║║║─║║─ %s\n" $PR_RAINBOW $PR_RESET
+    printf "%s   X:::::X X:::::X    %s i:::i  %sd::::d     d::::d  %se::::eeeeeeeee  %s ──║╚╝║║═╣╚╝║╚╣╚╝║╚═╝║║═╣╚╝║ ╠══║╚╝║╚═╣╚═╣║═╬══║║║║╚╝║╚╣╚╣╚═╝║─ %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sXXX:::::X   X:::::XXX %s i:::i  %sd::::d     d::::d  %se:::::e         %s ──╚══╩══╣╔═╩═╩══╩═╗╔╩══╩══╝ ╚══╩══╩══╩══╩══╩══╝╚╝╚══╩═╩═╩═╗╔╝─ %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sX::::::X     X::::::X %si:::::i %sd:::::ddddd:::::dd %se::::::e        %s ────────║║──────╔═╝║────────▄▀▄─────▄▀▄─────────────────╔═╝║── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sX:::::X       X:::::X %si:::::i %s d:::::::::::::::d %s e::::::eeeeee  %s ────────╚╝──────╚══╝───────▄█░░▀▀▀▀▀░░█▄────────────────╚══╝── %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sX:::::X       X:::::X %si:::::i %s  d::::::::ddd:::d %s  ee:::::::::e  %s ───────────────────────▄▄──█░░░░░░░░░░░█──▄▄──────...Thanks!❤️ %s\n" $PR_RAINBOW $PR_RESET
+    printf "%sXXXXXXX       XXXXXXX %siiiiiii %s   dddddddd   dddd %s    eeeeeeeeee  %s ──────────────────────█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█───────────────── %s\n" $PR_RAINBOW $PR_RESET
+    echo   "Now you are part of the Xide's family because you are downloading 'the seed'."
+    echo   "Using 'the seed' is your own responsibilily of all stuff downloaded from here. Now, Enjoy! :)"
 }
 create_main_container(){
     # delete old stuff
@@ -84,7 +86,7 @@ main(){
     up_to_day
     setup_package_to_install
     download_seed
-    setup_color
+    echo "Version: 2022071201"
     print_success
     setup_oh_my_zsh
 }
