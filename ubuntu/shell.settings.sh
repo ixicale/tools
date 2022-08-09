@@ -10,7 +10,7 @@ export LOGGER_FILE="/tmp/logger_file.md"
 #region    — — — — — — — — — — # ! ALIASES
 alias  gic="git checkout"
 alias  gis="git status; git show;"
-alias gime="git merge"
+alias gimme="git merge"
 alias gipl="git pull"
 alias gips="git push"
 alias la="ls -la"
@@ -27,12 +27,14 @@ function pull_repos_from_folder() {
     [ -d "$1" ] && {
         echo -ne "";
         for repo in $(ls -d $1/*/); do 
-            echo -e "## UPDATE $repo\n" >> $LOGGER_FILE;
+            echo -e "## UPDATE \`$repo\`\n" >> $LOGGER_FILE;
             cd $repo;
+            echo "\`\`\`" >> $LOGGER_FILE;
             gic develop &>> $LOGGER_FILE;
             git fetch --all &>> $LOGGER_FILE;
             gipl --tags -f &>> $LOGGER_FILE;
             gipl &>> $LOGGER_FILE;
+            echo "\`\`\`\n" >> $LOGGER_FILE;
             echo "" >> $LOGGER_FILE;
             echo -ne "${BIGreen}.";
         done
