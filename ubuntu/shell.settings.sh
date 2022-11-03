@@ -43,12 +43,13 @@ function pull_repos_from_folder() {
     }
 }
 function rst () { clear -x; source ~/.zshrc; apt moo moo; echo "";}
+function sudo_update() { sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean -y; }
 #endregion — — — — — — — — — — # ! FUNCTIONS
 
 #region    — — — — — — — — — — #! EXTENSIONS
 # extends more settings from another file EG: 'source $HOME/another_settings_file.sh'
 source $SHELL_FOLDER/shell.colors.sh
-# extends this base settings from another file EG: 'source $HOME/another_settings_file.sh'
+
 #endregion — — — — — — — — — — # ! EXTENSIONS
 
 #region    — — — — — — — — — — #! AUTO-RUN SETTINGS
@@ -57,7 +58,8 @@ if (($N_DAY == 3)); then
     echo "${BIYellow}Today is Wednesday!!${BGreen}";
     apt moo moo;
     echo "${Color_Off}";
-else  
+    # sudo_update
+else
     # another stuff
 fi
 #endregion — — — — — — — — — — #! AUTO-RUN SETTINGS
