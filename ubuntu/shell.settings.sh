@@ -23,55 +23,75 @@ alias editor="code"
 function omae_wa_mou_shindeiru() { [[ -z "$1" || ! -d "$1" ]] && { echo "$1 ..." } || { echo -e "${Color_Off}$1_killer says: ${BRed}Omae wa mou shindeiru...${Color_Off}\n$1 says: ${BYellow}Nani!?${Color_Off}"; rm -rf $1; } && echo "----\n"; }
 function path_add() { if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then; { PATH="${PATH:+"$PATH:"}$1" && echo "added $1 to PATH"; }; fi }
 function python_venv(){omae_wa_mou_shindeiru $1; python3.7 -m venv $1 && source $1/bin/activate && pip install --upgrade pip; }
-function git_logging() {
+function pull_repo_loggin() {
     repo=${1:-"."}
     option=${2:-"-"}
+    [ ! -d "$repo" ] && { return; } || { repo=$(realpath "$repo"); }
 
     # Get some information about the repository and the last commit
     current_branch=$(cd "$repo" && git branch --show-current)
     last_commit_user=$(cd "$repo" && git log -1 --pretty=format:'%an')
 
-    # Log the update message and the commands to be executed
-    echo -e "## UPDATE $repo\n\`\`\`" >> "$LOGGER_FILE"
+    # Use a subshell to redirect all output to the logger file
     (
+        echo -e "## Updating ${repo}"
+        echo -e "\n> Last commit on branch '$current_branch' by '$last_commit_user'\n"
         cd "$repo"
-        # Stash changes if there are any
-        [ -n "$(git status --porcelain)" ] && git stash >> "$LOGGER_FILE" 2>&1
-        git fetch --all 
-        git remote prune origin 
+        echo -e "\`\`\`"
+        # Check if there are any changes to stash
+        if [[ -n $(git status --porcelain) ]]; then
+            echo -e "Stashing changes..."
+            git stash save --include-untracked "Auto-stash changes before updating"
+        fi
+        # Fetch all updates and prune any stale remote branches
+        echo -e "Fetching updates..."
+        git fetch --all --prune
+        # Pull the updates and tags forcefully
+        echo -e "Pulling updates..."
         git pull --force --tags
-        # Pop the stash if changes were stashed
-        [ -n "$(git stash list)" ] && git stash pop >> "$LOGGER_FILE" 2>&1
-    ) >> "$LOGGER_FILE" 2>&1
-    echo -e "\`\`\`\n> Last commit on branch '$current_branch' by '$last_commit_user'\n" >> "$LOGGER_FILE"
+        # Check if any stashed changes need to be popped
+        if [[ -n $(git stash list) ]]; then
+            echo -e "Popping stashed changes..."
+            git stash pop
+        fi
+        echo -e "\`\`\`\n"
 
-    # Delete local branches if option == del_local_branches
-    if [ "$option" == "del_local_branches" ]; then
-        echo -e "### Deleting local branches\n\`\`\`" >> "$LOGGER_FILE"
-        (cd "$repo" && git branch | grep -v "^$current_branch$" | xargs git branch -D) >> "$LOGGER_FILE" 2>&1
-        echo -e "\`\`\`\n" >> "$LOGGER_FILE"
-    fi
+        # Delete local branches if option == restore
+        if [[ "$option" == "restore" ]]; then
+            echo -e "### Deleting local branches\n\`\`\`"
+            (cd "$repo" && git branch | grep -v "^$current_branch$" | xargs git branch -D)
+            echo -e "\`\`\`\n"
+        fi
+    ) >> "$LOGGER_FILE" 2>&1
+
     }
 
 function pull_repos() {
     folder=${1:-"."}
     option=${2:-"-"}
+    [ ! -d "$folder" ] && { 
+        echo -e "${BIRed}Folder '$folder' does not exist${Color_Off}";
+        return; 
+    } || { folder=$(realpath "$folder"); }
+
     [ -d "$folder/.git" ] && {
         # If folder is a repository, pull it
-        echo -e "${BIGreen}Pulling repository '$repo'${Color_Off}"
-        git_logging "$folder" "$option"
+        echo -e "${BIGreen}Pulling repository '$folder'${Color_Off}"
+        pull_repo_loggin "$folder" "$option"
+        return; 
     } || [ -d "$folder" ] && {
         # If folder contains repositories, pull all of them
-        echo -e "Pulling all repositories in '$folder'\n# $(date '+%Y-%m-%d %H:%M:%S')" > "$LOGGER_FILE"
+        echo -e "# Pulling all repositories in '$folder' @ $(date '+%Y-%m-%d %H:%M:%S')" > "$LOGGER_FILE"
         find "$folder" -mindepth 2 -maxdepth 2 -type d -name '.git' -print0 | while read -d $'\0' gitdir; do
-            git_logging "$(dirname "$gitdir")" "$option"
+            pull_repo_loggin "$(dirname "$gitdir")" "$option"
             echo -ne "${BIGreen}."
         done
         echo "DONE!${Color_Off}"
         # Open the log file in the default text editor
         editor "$LOGGER_FILE"
+        return; 
     } || {
-        echo -e "Usage: pull_repos <folder> [del_local_branches]\n\n<folder> can be a repository or a directory containing repositories.\nIf [del_local_branches] is specified, all local branches except the current one will be deleted after pulling.\n"
+        echo -e "Usage: pull_repos <folder> [restore]\n\n<folder> can be a repository or a directory containing repositories.\nIf [restore] is specified, all local branches except the current one will be deleted after pulling.\n"
     }
 }
 function rst () { clear -x; source ~/.zshrc; apt moo moo; echo "";}
