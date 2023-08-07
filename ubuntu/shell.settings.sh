@@ -31,40 +31,54 @@ function pull_repo_loggin() {
     # Get some information about the repository and the last commit
     current_branch=$(cd "$repo" && git branch --show-current)
     last_commit_user=$(cd "$repo" && git log -1 --pretty=format:'%an')
+    last_commit_message=$(cd "$repo" && git log -1 --pretty=format:'%s')
 
     # Use a subshell to redirect all output to the logger file
     (
         echo -e "## Updating ${repo}"
         echo -e "\n> Last commit on branch '$current_branch' by '$last_commit_user'\n"
-        cd "$repo"
+        echo -e "\n> Last commit message: '$last_commit_message'\n"
+        cd "$repo" 
         echo -e "\`\`\`"
         # Check if there are any changes to stash
         if [[ -n $(git status --porcelain) ]]; then
-            echo -e "Stashing changes..."
+            echo -e "\nStashing changes..."
             git stash save --include-untracked "Auto-stash changes before updating"
         fi
+        # if main branch exists, checkout to origin/main, else if master branch exists, checkout to origin/master
+        if [[ $(git branch --list origin/main) ]]; then
+            git checkout origin/main
+        elif [[ $(git branch --list origin/master) ]]; then
+            git checkout origin/master
+        fi
         # Fetch all updates and prune any stale remote branches
-        echo -e "Fetching updates..."
+        echo -e "\nFetching updates..."
         git fetch --all --prune
-        # Pull the updates and tags forcefully
-        echo -e "Pulling updates..."
-        git pull --force --tags
+        # if current_brach is not empty, pull current_branch changes
+        if [[ -n "$current_branch" ]]; then
+            # Pull the updates and tags forcefully
+            echo -e "\nPulling updates..."
+            git pull --force --tags
+        fi
         # Check if any stashed changes need to be popped
         if [[ -n $(git stash list) ]]; then
-            echo -e "Popping stashed changes..."
+            echo -e "\nPopping stashed changes..."
             git stash pop
         fi
+        # Clean up any untracked files and directories
+        echo -e "\nCleaning up untracked files and directories..."
+        git clean -dfx
         echo -e "\`\`\`\n"
 
         # Delete local branches if option == restore
         if [[ "$option" == "restore" ]]; then
             echo -e "### Deleting local branches\n\`\`\`"
+            echo -e "\nRunning 'git branch | grep -v \"^$current_branch$\" | xargs git branch -D'\n"
             (cd "$repo" && git branch | grep -v "^$current_branch$" | xargs git branch -D)
             echo -e "\`\`\`\n"
         fi
     ) >> "$LOGGER_FILE" 2>&1
-
-    }
+}
 
 function pull_repos() {
     folder=${1:-"."}
