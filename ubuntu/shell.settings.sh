@@ -36,8 +36,8 @@ function pull_repo_loggin() {
     # Use a subshell to redirect all output to the logger file
     (
         echo -e "## Updating ${repo}"
-        echo -e "\n> Last commit on branch '$current_branch' by '$last_commit_user'\n"
-        echo -e "\n> Last commit message: '$last_commit_message'\n"
+        echo -e "\n> Last commit on branch '$current_branch' by '$last_commit_user'"
+        echo -e "> Last commit message: '$last_commit_message'\n"
         cd "$repo" 
         echo -e "\`\`\`"
         # Check if there are any changes to stash
