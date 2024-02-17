@@ -116,7 +116,7 @@ function pull_repos() {
     }
 }
 function sudo_update() { sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean -y; }
-function update_this_file () {
+function reload_this_file () {
     curl -fsSL https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh > $SHELL_FILE
     echo "updated $SHELL_FILE"
 }
@@ -131,7 +131,7 @@ source $SHELL_FOLDER/shell.colors.sh
 #region    — — — — — — — — — — #! AUTO-RUN SETTINGS
 if (($N_DAY == 1)); then
     # each monday (day 1).
-    update_this_file;
+    reload_this_file;
 elif (($N_DAY == 3)); then
     # wednesday (day 3).
     echo "${BIYellow}Today is Wednesday!!${BGreen}";
