@@ -130,9 +130,9 @@ source $SHELL_FOLDER/shell.colors.sh
 
 #region    — — — — — — — — — — #! AUTO-RUN SETTINGS
 if (($N_DAY == 1)); then
-    # each monday (day 1). 
-    update_this_file
-else if (($N_DAY == 3)); then
+    # each monday (day 1).
+    update_this_file;
+elif (($N_DAY == 3)); then
     # wednesday (day 3).
     echo "${BIYellow}Today is Wednesday!!${BGreen}";
     apt moo moo;
