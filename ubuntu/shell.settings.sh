@@ -23,6 +23,14 @@ alias editor="code"
 function omae_wa_mou_shindeiru() { [[ -z "$1" || ! -d "$1" ]] && { echo "$1 ..." } || { echo -e "${Color_Off}$1_killer says: ${BRed}Omae wa mou shindeiru...${Color_Off}\n$1 says: ${BYellow}Nani!?${Color_Off}"; rm -rf $1; } && echo "----\n"; }
 function path_add() { if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then; { PATH="${PATH:+"$PATH:"}$1" && echo "added $1 to PATH"; }; fi }
 function python_venv(){omae_wa_mou_shindeiru $1; python3.7 -m venv $1 && source $1/bin/activate && pip install --upgrade pip; }
+function download_my_github_repos () {
+    GITHUB_TOKEN=$(git config --global github.token)
+    [ -z "$GITHUB_TOKEN" ] && {
+        echo "${BIRed}GITHUB_TOKEN is empty${Color_Off}"; return 1; 
+    } || {
+        bash -c "$(curl -fsSL https://raw.githubusercontent.com/ixicale/RepoLoader/main/exec.sh)";
+    }
+}
 function pull_repo_loggin() {
     repo=${1:-"."}
     option=${2:-"-"}
@@ -79,7 +87,6 @@ function pull_repo_loggin() {
         fi
     ) >> "$LOGGER_FILE" 2>&1
 }
-
 function pull_repos() {
     folder=${1:-"."}
     option=${2:-"-"}
@@ -108,8 +115,11 @@ function pull_repos() {
         echo -e "Usage: pull_repos <folder> [restore]\n\n<folder> can be a repository or a directory containing repositories.\nIf [restore] is specified, all local branches except the current one will be deleted after pulling.\n"
     }
 }
-function rst () { clear -x; source ~/.zshrc; apt moo moo; echo "";}
 function sudo_update() { sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean -y; }
+function update_this_file () {
+    curl -fsSL https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh > $SHELL_FILE
+    echo "updated $SHELL_FILE"
+}
 #endregion — — — — — — — — — — # ! FUNCTIONS
 
 #region    — — — — — — — — — — #! EXTENSIONS
@@ -119,8 +129,11 @@ source $SHELL_FOLDER/shell.colors.sh
 #endregion — — — — — — — — — — # ! EXTENSIONS
 
 #region    — — — — — — — — — — #! AUTO-RUN SETTINGS
-if (($N_DAY == 3)); then
-    # doing something each wednesday (day 3). eg:
+if (($N_DAY == 1)); then
+    # each monday (day 1). 
+    update_this_file
+else if (($N_DAY == 3)); then
+    # wednesday (day 3).
     echo "${BIYellow}Today is Wednesday!!${BGreen}";
     apt moo moo;
     echo "${Color_Off}";
