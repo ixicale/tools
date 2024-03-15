@@ -23,7 +23,7 @@ alias py3="python3"
 #region    — — — — — — — — — — # ! FUNCTIONS
 function omae_wa_mou_shindeiru() { [[ -z "$1" || ! -d "$1" ]] && { echo "$1 ..." } || { echo -e "${Color_Off}$1_killer says: ${BRed}Omae wa mou shindeiru...${Color_Off}\n$1 says: ${BYellow}Nani!?${Color_Off}"; rm -rf $1; } && echo "----\n"; }
 function path_add() { if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then; { PATH="${PATH:+"$PATH:"}$1" && echo "added $1 to PATH"; }; fi }
-function python_venv(){omae_wa_mou_shindeiru $1; py3 -m venv $1 && source $1/bin/activate && pip install --upgrade pip; }
+function python_venv(){omae_wa_mou_shindeiru $1; py3 -m venv $1 && source $1/bin/activate && pipinstall --upgrade pip; }
 function download_my_github_repos () {
     GITHUB_TOKEN=$(git config --global github.token)
     [ -z "$GITHUB_TOKEN" ] && {
