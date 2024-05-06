@@ -16,6 +16,7 @@ alias gips="git push"
 alias gista="git stash"
 alias gistap="git stash pop"
 alias gif="git fetch --all --prune"
+alias gicln="git clean -dfx"
 alias la="ls -la"
 alias ld="ls -d */ | cut -f1 -d'/'" # list directories
 alias pipinstall="pip install --ignore-installed --no-cache-dir"
