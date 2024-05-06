@@ -13,11 +13,15 @@ alias  gis="git status; git show;"
 alias gimme="git merge"
 alias gipl="git pull"
 alias gips="git push"
+alias gista="git stash"
+alias gistap="git stash pop"
+alias gif="git fetch --all --prune"
 alias la="ls -la"
 alias ld="ls -d */ | cut -f1 -d'/'" # list directories
 alias pipinstall="pip install --ignore-installed --no-cache-dir"
 alias editor="code"
 alias py3="python3"
+alias python3="python3.9"
 #endregion — — — — — — — — — — # ! ALIASES
 
 #region    — — — — — — — — — — # ! FUNCTIONS
