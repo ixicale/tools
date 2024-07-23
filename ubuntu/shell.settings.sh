@@ -135,10 +135,10 @@ source $SHELL_FOLDER/shell.colors.sh
 #endregion — — — — — — — — — — # ! EXTENSIONS
 
 #region    — — — — — — — — — — #! AUTO-RUN SETTINGS
-if (($N_DAY == 1)); then
+if [[ $N_DAY -eq 1 ]]; then
     # each monday (day 1).
     reload_this_file;
-elif (($N_DAY == 3)); then
+elif [[ $N_DAY -eq 3 ]]; then
     # wednesday (day 3).
     echo "${BIYellow}Today is Wednesday!!${BGreen}";
     apt moo moo;
