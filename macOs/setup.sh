@@ -75,12 +75,12 @@ setup_package_to_install() {
     brew install --cask visual-studio-code;
 }
 
-download_seed() {
+download_seed(){
     create_main_container;
     cd "$DOWNLOAD_CONTAINER";
-    wget https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme;
-    wget https://raw.githubusercontent.com/ixicale/tools/main/macOs/shell.settings.sh;
-    wget https://raw.githubusercontent.com/ixicale/tools/main/macOs/shell.colors.sh;
+    curl -O https://raw.githubusercontent.com/ixicale/tools/main/theme/xide.zsh-theme;
+    curl -O https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.settings.sh;
+    curl -O https://raw.githubusercontent.com/ixicale/tools/main/ubuntu/shell.colors.sh;
 }
 setup_oh_my_zsh(){
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)";
